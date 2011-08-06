@@ -5,55 +5,52 @@
 #include <iostream>
 
 
-
-class smart_pointer{
- protected:
-   int *count;
-   int *data;
- public:
+template<class T> class smart_pointer{
+  public:
+   struct counter{
+      T *data;
+      int count;
+   };
+   counter* c1;
+   
    int get_count(){
-      return *count;
+      return c1->count;
    }
-   int get_data(){
-      return (int)*data;
+   T get_data(){
+      return *c1->data;
    }
-   void increment_count(){
-      (*count)++;
+   void set_data(T x){
+      *c1->data = x;
    }
-   void set_data(int x){
-      *data = x;
+   T *give_data(){
+      return c1->data;
    }
-   int *give_count(){
-      return count;
-   }
-   int *give_data(){
-      return data;
-   }
-    smart_pointer & operator= ( smart_pointer &var1){
+   smart_pointer & operator= (const smart_pointer &var1){
       std::cout << "in operator overload\n";
       if(this != &var1){
-         if(*count == 1){
-            delete count;
-            delete data;
+         if(c1->count == 1){
+            delete c1->data;
          }
-         count = var1.give_count();
-         data = var1.give_data();
-         var1.increment_count();
+         c1->count--;
+         c1 = var1.c1;
+         c1->count++;
       }
       return *this;
    }
-   smart_pointer(int* p){
-      data = p;
-      count = new int();;
-      *count = 1;
+   smart_pointer(T* p){
+      std::cout << p << "\n";
+      std::cout << "dasdasdasd\n";
+      c1->data = p;
+      //c1->count = 1;
+
+      
    }
    ~smart_pointer(){
       std::cout << "start \n";
-      (*count)--;
-      if(*count == 0){
-         std::cout << *data << "\n";
-         delete count ;
-         delete data;
+      c1->count--;
+      if(c1->count == 0){
+         std::cout << *c1->data << "\n";
+         delete c1->data;
       }
    }
 };

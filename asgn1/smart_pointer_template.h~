@@ -1,0 +1,9 @@
+#ifndef SMART_POINTER_TEMPLATE_H_
+#define SMART_POINTER_TEMPLATE_H_
+
+
+class smart_pointer_template{
+   T* my_data;
+   unsigned int count;
+
+}
