@@ -3,13 +3,15 @@
 //#include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
+#include <assert.h>
 #include "counter.h"
+
 namespace smart_pointers{
+   using namespace std;
    template<typename T>
       class smart_pointer{
    public:
       counter<T> *c1;
-   
       int get_count(){
          return c1->count;
       }
@@ -64,20 +66,31 @@ namespace smart_pointers{
       }
       smart_pointer & operator= (const smart_pointer &var1){
          if(this != &var1){
-            c1->count--;
-            if(c1->count == 0){
-               std::cout << "deleting a counter\n";
-               delete c1->data;
-               delete c1;
+            if(c1 != NULL){               
+               c1->count--;
+               if(c1->count == 0){
+                  std::cout << "deleting a counter\n";
+                  delete c1->data;
+                  delete c1;
+               }
             }
             c1 = var1.c1;
             c1->count++;
          }
          return *this;
       }
+       smart_pointer(){ 
+          c1 = NULL; 
+       } 
       smart_pointer(T* p){
          c1 = new counter<T>(p);
          c1->count = 1;
+      }
+      smart_pointer(const smart_pointer &var1){
+         std::cout << "constructing\n";
+         c1 = var1.c1;
+         c1->count++;
+          
       }
       ~smart_pointer(){
          std::cout << "calling descructor for smrt pntr \n";

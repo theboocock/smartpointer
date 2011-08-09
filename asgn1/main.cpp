@@ -5,14 +5,17 @@
 #include "smart_pointer.h"
 #include <stdio.h>
 #include <string>
+
 #define SUCCESS 0
 #define FAILURE 1
 
 
 using namespace smart_pointers;
 int main(void){
-   smart_pointer<small> s1 = new small();
-   smart_pointer<link> s2 = new link();
+   smart_pointer<small> s1;
+   s1 = new small();
+   //smart_pointer<small> s2;
+   //s2 = new small();
    /*
    std::cout << "address of counter s1: " << s1.c1 << "\n" ;
    std::cout << "address of counter s2: " << s2.c1 << "\n";

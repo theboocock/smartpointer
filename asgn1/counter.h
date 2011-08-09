@@ -1,5 +1,5 @@
-#ifndef TEMPLATE_H
-#define TEMPLATE_H
+#ifndef COUNTER_H
+#define COUNTER_H
 
 template <class T>
 class counter{

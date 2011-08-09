@@ -2,6 +2,9 @@
 	SMARTPTRMAIN.C
 	--------------
 */
+#include <map>
+
+
 #include "smart_pointer.h"
 
 using namespace smart_pointers;
@@ -11,10 +14,10 @@ using namespace smart_pointers;
 	----------
 	an extremely simple linked list class
 */
-class link
+class linker
 {
 public:
-   smart_pointer<link> next;
+   smart_pointer<linker> next;
    int data;
 };
 
@@ -55,6 +58,8 @@ smart_pointer<int> p = new int();
 *p = 5;
 //print_all_counts("first");
 smart_pointer<int> q = p;
+ q = p;
+ cout << "q's counts and p's count " << p.get_count() << "  " << q.get_count() << "\n";
 cout << "p = " << *p << " q = " << *q << endl;
 //print_all_counts("second");
 smart_pointer<int> r = new int();
@@ -72,13 +77,13 @@ q = p = r = 0;
 	test a circular linked list, there should be no way of deleting
 	this list - in other words, garbage is created
 */
- smart_pointer<link> l = new link();
+smart_pointer<linker> l = new linker();
 l->data = 1;
 assert(l->data == (*l).data);
-l->next = new link();
-l->next->next = new link();
-l->next->next->next = l;
-l = 0;
+ l->next = new linker(); 
+l->next->next = new linker(); 
+l->next->next->next = l; 
+ l = 0; 
 //print_all_counts("after linked list");
 
 /*
@@ -92,7 +97,7 @@ l = 0;
 smart_pointer<big> b = new big();
 for (int i=0; i < 1000; i++)
 	b = new big();
-//print_all_counts("after big");
+// print_all_counts("after big");
 
 /*
 	test that scoping doesn't cause any problem

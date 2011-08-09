@@ -4,7 +4,7 @@ MAIN_FLAGS      := -W -Wall -ansi -pedantic
 
 OUTPUT  := pointers
 
-SRCS    := main.cpp
+SRCS    := smart_pointer_main.c
 
 SRCS    := ${SRCS}
 
