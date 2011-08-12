@@ -2,35 +2,23 @@
 #define POINTER_LIST_H_
 
 #include <map>
+#include <iostream>
+//#include "smart_pointer.h"
 
 class pointer_list{
-
  private:
    int num_smart_pointers;
-   map<int, smart_pointer*> count_map;
+   std::map<void *, int > count_map;
    static pointer_list* instance;
-   pointer_list(){
-      num_smart_pointers = 0;           
-   }
+   pointer_list();
 
  public:
-   static pointer_list* get_instance(){
-      if (instance = 0){
-         this->instance = pointer_list();
-         return instance;
-      }else{
-         return instance; 
-      }
-   }
+   static pointer_list* get_instance();
+   void add_to_list(void * to_add);
+   void print_all_counts(const char * var);
+   void erase           (void * to_delete);
+   };
 
-   void add_to_list(smart_pointer * to_add){
-      map[num_smart_pointers++] = to_add;
-   }
-
-   void print_all_counts(){
-      
-   }   
-}
-   
+#endif
 
 

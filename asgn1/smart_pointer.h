@@ -5,6 +5,7 @@
 #include <iostream>
 #include <assert.h>
 #include "counter.h"
+#include "pointer_list.h"
 
 namespace smart_pointers{
    using namespace std;
@@ -66,10 +67,9 @@ namespace smart_pointers{
       }
       smart_pointer & operator= (const smart_pointer &var1){
          if(this != &var1){
-            if(c1 != NULL){               
+            if(c1 != 0){               
                c1->count--;
                if(c1->count == 0){
-                  std::cout << "deleting a counter\n";
                   delete c1->data;
                   delete c1;
                }
@@ -79,29 +79,29 @@ namespace smart_pointers{
          }
          return *this;
       }
-       smart_pointer(){ 
-          c1 = NULL; 
-       } 
+      smart_pointer(){
+         c1 =0 ;
+      }
+       
       smart_pointer(T* p){
          c1 = new counter<T>(p);
          c1->count = 1;
       }
-      smart_pointer(const smart_pointer &var1){
-         std::cout << "constructing\n";
+      smart_pointer(const smart_pointer &var1){       
          c1 = var1.c1;
          c1->count++;
-          
       }
       ~smart_pointer(){
-         std::cout << "calling descructor for smrt pntr \n";
          c1->count--;
          if(c1->count == 0){
-            std::cout << "deleting a counter\n";
             delete c1->data;
             delete c1;
          }
       }
    };
+
+   static void print_all_counts(const char * var){
+      cout << "wow" <<endl;
 }
 
 #endif
