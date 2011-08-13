@@ -3,7 +3,6 @@
 
 #include <map>
 #include <iostream>
-//#include "smart_pointer.h"
 
 class pointer_list{
  private:
@@ -17,6 +16,7 @@ class pointer_list{
    void add_to_list(void * to_add);
    void print_all_counts(const char * var);
    void erase           (void * to_delete);
+   void decrement_count(void * to_incr);
    };
 
 #endif

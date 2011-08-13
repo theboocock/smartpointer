@@ -5,7 +5,8 @@
 #include <iostream>
 #include <assert.h>
 #include "counter.h"
-#include "pointer_list.h"
+#define null 0
+
 
 namespace smart_pointers{
    using namespace std;
@@ -67,41 +68,59 @@ namespace smart_pointers{
       }
       smart_pointer & operator= (const smart_pointer &var1){
          if(this != &var1){
-            if(c1 != 0){               
+            if(c1 != null){               
                c1->count--;
+               pointer_list::get_instance()->decrement_count(c1->data);
                if(c1->count == 0){
-                  delete c1->data;
                   delete c1;
+                  pointer_list::get_instance()->erase(c1->data);
                }
+            } else {
+               pointer_list::get_instance()->decrement_count(null);
             }
             c1 = var1.c1;
-            c1->count++;
+            if(var1.c1 != null){
+               c1->count++;
+               pointer_list::get_instance()->add_to_list(c1->data);
+            } else {
+               pointer_list::get_instance()->add_to_list(null);  
+            }
          }
          return *this;
       }
       smart_pointer(){
-         c1 =0 ;
+         c1 = null;
+         pointer_list::get_instance()->add_to_list(null);
       }
        
       smart_pointer(T* p){
          c1 = new counter<T>(p);
          c1->count = 1;
+         pointer_list::get_instance()->add_to_list(c1->data);
       }
-      smart_pointer(const smart_pointer &var1){       
+      smart_pointer(const smart_pointer &var1){
+         cout << var1.c1 << endl;
          c1 = var1.c1;
+         if(c1 != 0){
          c1->count++;
+          pointer_list::get_instance()->add_to_list(c1->data);
+         } else {
+            pointer_list::get_instance()->add_to_list(null);
+         }
       }
       ~smart_pointer(){
          c1->count--;
+         pointer_list::get_instance()->decrement_count(c1->data);
          if(c1->count == 0){
-            delete c1->data;
             delete c1;
+            pointer_list::get_instance()->erase(c1->data);
          }
       }
    };
+}
 
    static void print_all_counts(const char * var){
-      cout << "wow" <<endl;
+      pointer_list::get_instance()->print_all_counts(var);
 }
 
 #endif
