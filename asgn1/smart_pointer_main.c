@@ -52,13 +52,10 @@ int main(void)
    /*
      Simple Tests
    */
-   smart_pointer<int> p;
-   smart_pointer<int> q;
-   cout << "got here " << endl;
-   q = p;
-      //*p = 5;
+   smart_pointer<int> p = new int();
+   *p = 5;
    print_all_counts("first");
-   // smart_pointer<int> q = p;
+   smart_pointer<int> q = p;
    q = p;
    cout << "q's counts and p's count " << p.get_count() << "  " << q.get_count() << "\n";
    cout << "p = " << *p << " q = " << *q << endl;

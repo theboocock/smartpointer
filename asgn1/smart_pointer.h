@@ -99,7 +99,6 @@ namespace smart_pointers{
          pointer_list::get_instance()->add_to_list(c1->data);
       }
       smart_pointer(const smart_pointer &var1){
-         cout << var1.c1 << endl;
          c1 = var1.c1;
          if(c1 != 0){
          c1->count++;

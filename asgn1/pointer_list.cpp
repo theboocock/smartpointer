@@ -26,7 +26,7 @@ void pointer_list::print_all_counts(const char * var){
    cout << var <<  " begin" << endl;
    map<void *,int>::iterator it;
    for(it = count_map.begin(); it  != count_map.end(); it++){
-      cout<< it->first << "\t" << it->second << endl;
+      cout<< "\tlocation = " << (long)it->first << ", count = " << it->second << endl;
    }
    cout << var << " end"   << endl;  
 }
@@ -37,12 +37,9 @@ void pointer_list::erase(void *to_delete){
 
 void pointer_list::decrement_count(void * to_incr){
    map<void *,int>::iterator it;
-   // cout << to_incr << endl;
-   // print_all_counts("WTF");
    if((it = count_map.find(to_incr)) != count_map.end()){
       it->second--;
    }
-   //cout << "dsadas";
 }
 
 
